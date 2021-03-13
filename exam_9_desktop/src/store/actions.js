@@ -1,13 +1,14 @@
 import {
   CLOSE_MODAL,
   DELETE_CONTACT,
-  EDIT_CONTACT,
+  CHANGE_VALUE,
   FETCH_REQUEST,
   FETCH_REQUEST_MODAL,
   FETCH_REQUEST_SUCCESS,
   HIDE_BUTTON,
   SEND_REQUEST_SUCCESS,
   SHOW_MODAL,
+  EDIT_CONTACT_SUCCESS,
 } from "./actionTypes";
 import axios from "../axiosContacts";
 
@@ -36,12 +37,11 @@ export const closeModal = () => {
   return { type: CLOSE_MODAL };
 };
 const editContact = () => {
-  return { type: EDIT_CONTACT };
+  return { type: EDIT_CONTACT_SUCCESS };
 };
 const deleteContact = () => {
   return { type: DELETE_CONTACT };
 };
-
 export const fetchContacts = () => {
   return async (dispatch) => {
     try {
@@ -91,6 +91,19 @@ export const removeContact = (id) => {
   };
 };
 
-export const changeValueContact = () => {
-  
+export const changeValue = (value) => {
+  return { type: CHANGE_VALUE, value };
+};
+
+export const changeContact = (id, data) => {
+  return async (dispatch) => {
+    try {
+      dispatch(fetchRequest());
+      let response = await axios.put(id + ".json", data);
+      dispatch(editContact());
+      console.log(response);
+    } catch (e) {
+      dispatch(fetchRequestFailure(e));
+    }
+  };
 }

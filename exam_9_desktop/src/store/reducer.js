@@ -8,6 +8,7 @@ import {
   SHOW_MODAL,
   CLOSE_MODAL,
   DELETE_CONTACT,
+  CHANGE_VALUE,
 } from "./actionTypes";
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
   addButton: "block",
   editData: [],
   showModal: "none",
+  id: "",
 };
 
 const reducer = (state = initialState, action) => {
@@ -54,6 +56,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, showModal: "none" };
     case DELETE_CONTACT:
       return { ...state, loading: false, showModal: "none" };
+    case CHANGE_VALUE:
+      return { ...state, editData: action.value };
     default:
       return state;
   }

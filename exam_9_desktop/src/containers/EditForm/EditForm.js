@@ -1,21 +1,22 @@
 import { Form } from "react-bootstrap";
 import { Button } from "@material-ui/core";
-import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { hideButton, postContacts } from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import {
+  changeValue,
+  hideButton,
+  changeContact,
+  closeModal,
+} from "../../store/actions";
 import imageNotFound from "../../assets/image-not-found.jpg";
-import "./ContactForm.css";
+import "./EditForm.css";
 import { useHistory } from "react-router";
 
-const ContactForm = (props) => {
+const EditForm = (props) => {
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    img: "",
-  });
+  const editData = useSelector((state) => state.editData);
 
+  const id = props.match.params.id;
   useEffect(() => {
     dispatch(hideButton());
   }, [dispatch]);
@@ -23,23 +24,24 @@ const ContactForm = (props) => {
   const changeInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setFormData({ ...formData, [name]: value });
+    dispatch(changeValue({ ...editData, [name]: value }));
   };
   useEffect(() => {
-    if (formData.img === "") {
-      formData.img = { imageNotFound };
+    if (editData.img === "") {
+      editData.img = { imageNotFound };
     }
-  }, [formData.img, formData]);
+  }, [editData.img, editData]);
 
   const submitForm = (e) => {
     e.preventDefault();
     if (
-      formData.title !== "" &&
-      formData.email !== "" &&
-      formData.img !== "" &&
-      formData.phone !== ""
+      editData.title !== "" &&
+      editData.email !== "" &&
+      editData.img !== "" &&
+      editData.phone !== ""
     ) {
-      dispatch(postContacts(formData));
+      dispatch(changeContact(id, editData));
+      dispatch(closeModal());
       history.push("/contacts");
     }
   };
@@ -57,6 +59,7 @@ const ContactForm = (props) => {
           placeholder='Enter name'
           name='name'
           onChange={changeInput}
+          value={editData.name}
         />
       </Form.Group>
 
@@ -67,6 +70,7 @@ const ContactForm = (props) => {
           placeholder='Enter email'
           name='email'
           onChange={changeInput}
+          value={editData.email}
         />
       </Form.Group>
 
@@ -77,6 +81,7 @@ const ContactForm = (props) => {
           placeholder='Enter phone'
           name='phone'
           onChange={changeInput}
+          value={editData.phone}
         />
       </Form.Group>
 
@@ -87,10 +92,11 @@ const ContactForm = (props) => {
           placeholder='Enter picture'
           name='img'
           onChange={changeInput}
+          value={editData.img}
         />
       </Form.Group>
       <div className='img_wrapper'>
-        <img src={formData.img} alt='' className='form_image' />
+        <img src={editData.img} alt='' className='form_image' />
       </div>
 
       <div className='form_buttons'>
@@ -105,4 +111,4 @@ const ContactForm = (props) => {
   );
 };
 
-export default ContactForm;
+export default EditForm;

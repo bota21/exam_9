@@ -9,7 +9,6 @@ import {
   openModal,
   closeModal,
   removeContact,
-  changeValueContact,
 } from "../../store/actions";
 import ModalContact from "../../components/ModalContact/ModalContact";
 
@@ -19,7 +18,6 @@ const Contacts = (props) => {
   const loading = useSelector((state) => state.loading);
   const editData = useSelector((state) => state.editData);
   const showModal = useSelector((state) => state.showModal);
-
   const [contactId, setContactId] = useState("");
 
   useEffect(() => {
@@ -33,7 +31,6 @@ const Contacts = (props) => {
   const shutUpModal = () => {
     dispatch(closeModal());
   };
-  console.log(editData);
 
   useEffect(() => {
     dispatch(fetchModal(contactId));
