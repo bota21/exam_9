@@ -1,20 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
-import Contacts from "./containers/Contacts/Contacts";
 import { applyMiddleware, createStore } from "redux";
 import reducer from "./store/reducer";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./index.css";
+import Main from './containers/Main/Main';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <Contacts />
+      <Main />
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")

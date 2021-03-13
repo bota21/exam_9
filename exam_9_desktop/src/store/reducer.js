@@ -2,12 +2,15 @@ import {
   FETCH_REQUEST,
   FETCH_REQUEST_SUCCESS,
   FETCH_REQUEST_FAILURE,
+  HIDE_BUTTON,
+  SEND_REQUEST_SUCCESS,
 } from "./actionTypes";
 
 const initialState = {
   contacts: [],
   loading: false,
   error: null,
+  addButton: "block",
 };
 
 const reducer = (state = initialState, action) => {
@@ -24,10 +27,18 @@ const reducer = (state = initialState, action) => {
         };
         return newContacts;
       });
-
-      return { ...state, contacts: contactsData, loading: false };
+      return {
+        ...state,
+        contacts: contactsData,
+        loading: false,
+        addButton: true,
+      };
     case FETCH_REQUEST_FAILURE:
       return { ...state, error: action.error, loading: false };
+    case HIDE_BUTTON:
+      return { ...state, addButton: "none" };
+    case SEND_REQUEST_SUCCESS:
+      return { ...state, loading: false };
     default:
       return state;
   }

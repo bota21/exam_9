@@ -1,16 +1,21 @@
-import { Button } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import "./Layout.css";
 
-const Layout = ({ add, showButton, children }) => {
+const Layout = ({ children }) => {
+  const addButton = useSelector((state) => state.addButton);
   return (
     <>
       <header className='header'>
         <a href='/contacts' className='logo'>
           Contacts
         </a>
-        <Button onClick={add} style={{ display: showButton }}>
+        <NavLink
+          to='/contacts/add'
+          style={{ display: addButton }}
+          className='layout_link'>
           Add new contact
-        </Button>
+        </NavLink>
       </header>
       <main className='main'>{children}</main>
       <footer>Contacts</footer>

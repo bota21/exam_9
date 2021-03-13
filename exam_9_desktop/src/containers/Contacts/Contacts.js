@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Contact from "../../components/Contact/Contact";
-import Layout from "../../components/Layout/Layout";
-import Spinner from "../../components/UI/Spinner";
+import Spinner from "../../components/UI/Spinner/Spinner";
 import "./Contacts.css";
 import { fetchContacts } from "../../store/actions";
 
 const Contacts = () => {
   const dispatch = useDispatch();
   const contacts = useSelector((state) => state.contacts);
-  console.log(contacts)
+  const loading = useSelector((state) => state.loading);
+
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
@@ -19,11 +19,9 @@ const Contacts = () => {
   })
 
   return (
-    <div className='App'>
-      <Spinner open={false} />
-      <Layout>
+    <div className='contacts'>
+      <Spinner open={loading} />
         {renderContacts}
-      </Layout>
     </div>
   );
 };
