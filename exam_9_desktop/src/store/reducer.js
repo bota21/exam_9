@@ -6,6 +6,8 @@ import {
   SEND_REQUEST_SUCCESS,
   FETCH_REQUEST_MODAL,
   SHOW_MODAL,
+  CLOSE_MODAL,
+  DELETE_CONTACT,
 } from "./actionTypes";
 
 const initialState = {
@@ -14,7 +16,7 @@ const initialState = {
   error: null,
   addButton: "block",
   editData: [],
-  showModal: 'none',
+  showModal: "none",
 };
 
 const reducer = (state = initialState, action) => {
@@ -47,7 +49,11 @@ const reducer = (state = initialState, action) => {
     case FETCH_REQUEST_MODAL:
       return { ...state, editData: action.data, loading: false };
     case SHOW_MODAL:
-      return { ...state, showModal: 'block' };
+      return { ...state, showModal: "block" };
+    case CLOSE_MODAL:
+      return { ...state, showModal: "none" };
+    case DELETE_CONTACT:
+      return { ...state, loading: false, showModal: "none" };
     default:
       return state;
   }
