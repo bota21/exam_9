@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -18,19 +18,21 @@ export default function Main() {
   const loading = useSelector((state) => state.loading);
   const modalVisible = useSelector((state) => state.modalVisible);
   const dispatch = useDispatch();
-
-  console.log(contacts);
+  const [info, setInfo] = useState("");
 
   useEffect(() => {
     dispatch(fetchContact());
   }, [dispatch]);
-  const clicked = () => {
+
+  const clicked = (id) => {
+    const index = contacts.findIndex((contact) => contact.id === id);
+    setInfo(contacts[index]);
     dispatch(showModal());
   };
-  console.log(modalVisible);
-const close = () => {
-    dispatch(closemodal())
-}
+  
+  const close = () => {
+    dispatch(closemodal());
+  };
   return (
     <View style={styles.container}>
       <Modal
@@ -39,14 +41,15 @@ const close = () => {
         transparent={false}
         visible={modalVisible}>
         <Image
+          style={styles.modalImg}
           source={{
-            uri: "https://bota21.github.io/images/img/pepperoni.jpeg",
+            uri: info.image,
           }}
         />
         <View style={styles.modalWrapper}>
-          <Text>Title</Text>
-          <Text>Email</Text>
-          <Text>Phone</Text>
+          <Text>{info.title}</Text>
+          <Text>{info.email}</Text>
+          <Text>{info.phone}</Text>
         </View>
 
         <TouchableOpacity style={styles.button} onPress={close}>
@@ -59,6 +62,7 @@ const close = () => {
         renderItem={(item) => {
           return (
             <Contact
+              id={item.item.id}
               title={item.item.title}
               image={item.item.image}
               click={clicked}

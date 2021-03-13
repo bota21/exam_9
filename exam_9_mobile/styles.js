@@ -31,6 +31,7 @@ export const styles = StyleSheet.create({
   modal: {
     flex: 1,
     backgroundColor: "red",
+    alignItems: "center"
   },
   modalWrapper: {
     flex: 1,
@@ -41,4 +42,8 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     alignItems: "center"
   },
+  modalImg: {
+      width: 200,
+      height: 200
+  }
 });
