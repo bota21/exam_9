@@ -4,6 +4,8 @@ import {
   FETCH_REQUEST_FAILURE,
   HIDE_BUTTON,
   SEND_REQUEST_SUCCESS,
+  FETCH_REQUEST_MODAL,
+  SHOW_MODAL,
 } from "./actionTypes";
 
 const initialState = {
@@ -11,6 +13,8 @@ const initialState = {
   loading: false,
   error: null,
   addButton: "block",
+  editData: [],
+  showModal: 'none',
 };
 
 const reducer = (state = initialState, action) => {
@@ -20,6 +24,7 @@ const reducer = (state = initialState, action) => {
     case FETCH_REQUEST_SUCCESS:
       const contactsData = Object.keys(action.data).map((id) => {
         const newContacts = {
+          id: id,
           title: action.data[id].name,
           image: action.data[id].img,
           email: action.data[id].email,
@@ -39,6 +44,10 @@ const reducer = (state = initialState, action) => {
       return { ...state, addButton: "none" };
     case SEND_REQUEST_SUCCESS:
       return { ...state, loading: false };
+    case FETCH_REQUEST_MODAL:
+      return { ...state, editData: action.data, loading: false };
+    case SHOW_MODAL:
+      return { ...state, showModal: 'block' };
     default:
       return state;
   }

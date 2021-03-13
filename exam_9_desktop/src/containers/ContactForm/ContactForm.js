@@ -7,7 +7,7 @@ import imageNotFound from "../../assets/image-not-found.jpg";
 import "./ContactForm.css";
 import { useHistory } from "react-router";
 
-const ContactForm = () => {
+const ContactForm = (props) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: "",
@@ -15,8 +15,6 @@ const ContactForm = () => {
     phone: "",
     img: "",
   });
-
-//   console.log(formData);
 
   useEffect(() => {
     dispatch(hideButton());
