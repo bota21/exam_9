@@ -1,0 +1,17 @@
+.contact_wrapper {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  background: #ccc;
+  padding: 5px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+.contact_image {
+  width: 60px;
+  height: 60px;
+  background-size: contain;
+}
+.contact_title {
+  margin-left: 20px;
+}
